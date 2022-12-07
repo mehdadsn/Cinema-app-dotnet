@@ -1,4 +1,5 @@
 ﻿using CinemaApp.Models;
+using System.IO;
 
 namespace CinemaApp.Data
 {
@@ -20,13 +21,13 @@ namespace CinemaApp.Data
                         new CinemaApp.Models.Cinema()
                         {
                             Name = "Cinema Qods Tabriz",
-                            Logo = "https://static.cdn.asset.cinematicket.org/media/cache/7c/72/7c72d23bd165934658fc545779cc2c95.webp",
+                            LogoUrl = "https://static.cdn.asset.cinematicket.org/media/cache/7c/72/7c72d23bd165934658fc545779cc2c95.webp",
                             About = " خ امام خمینی، نرسیده به چهارراه شریعتی - ایستگاه BRT شریعتی "
                         },
                         new CinemaApp.Models.Cinema()
                         {
                             Name = "Pardis Setare Baran",
-                            Logo = "https://static.cdn.asset.cinematicket.org/media/cache/6c/58/6c589a6f7a4c742caf988cea1e083a43.webp",
+                            LogoUrl = "https://static.cdn.asset.cinematicket.org/media/cache/6c/58/6c589a6f7a4c742caf988cea1e083a43.webp",
                             About = "  نصف راه، مجتمع ستاره باران، طبقه سوم - ایستگاه اتوبوس کوچه باغ  "
                         },
                     });
@@ -89,12 +90,12 @@ namespace CinemaApp.Data
                     });
                     context.SaveChanges();
                 }
-                //producers
-                if (!context.Producers.Any())
+                //Directors
+                if (!context.Directors.Any())
                 {
-                    context.Producers.Add(new Producer()
+                    context.Directors.Add(new Director()
                     {
-                        Name = "Ali Tolouie"
+                        FullName = "Ali Tolouie"
                     });
                     context.SaveChanges();
 

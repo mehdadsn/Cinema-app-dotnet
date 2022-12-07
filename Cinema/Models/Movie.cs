@@ -1,9 +1,11 @@
 ﻿using CinemaApp.Data;
+using CinemaApp.Data.Base;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace CinemaApp.Models
 {
-    public class Movie
+    public class Movie : IEntityBase
     {
         [Key]
         public int Id { get; set; }
@@ -14,7 +16,7 @@ namespace CinemaApp.Models
         public DateTime CinemaEnd { get; set; }
         public MovieCategoy MovieCategoy { get; set; }
         public List<Actor>? Actors { get; set; }
-        public Producer? Producer { get; set; }
+        public Director? Director { get; set; }
         public Cinema? Cinema { get; set; }
     }
 }

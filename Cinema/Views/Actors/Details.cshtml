@@ -1,0 +1,52 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Actor Details";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Actor Details</h1>
+        </p>
+        <div class="row ">
+            <div class="col-md-8 offset-2">
+                    <div class="mb-5 text-center">
+                        <img id="ProfilePicture" class="border-info rounded-circle" style="max-width:150px;"/>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProfilePictureUrl" class="form-control-plaintext"></label>
+                        <input asp-for="ProfilePictureUrl" class="form-control" readonly/>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-control-plaintext"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Bio" class="form-control-plaintext"></label>
+                    <input asp-for="Bio" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Age" class="form-control-plaintext"></label>
+                    <input asp-for="Age" class="form-control" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicture');
+            output.src = $("#ProfilePictureUrl").val();
+        })
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model Cinema
+
+@{
+    ViewData["Title"] = "Delete Cinema";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete Confirmation</h1>
+        </p>
+        <div class="row ">
+            <div class="col-md-8 offset-2">
+                    <div class="mb-5 text-center">
+                        <img id="ProfilePicture" class="border-info rounded-circle" style="max-width:150px;"/>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="LogoUrl" class="form-control-plaintext"></label>
+                        <input asp-for="LogoUrl" class="form-control" readonly/>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-control-plaintext"></label>
+                    <input asp-for="Name" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="About" class="form-control-plaintext"></label>
+                    <input asp-for="About" class="form-control" readonly />
+                    </div>
+
+
+                    <div class="mb-3">
+                        <form asp-action="Delete" >
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Confirm" class="btn btn-danger float-end" />
+                        </form>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicture');
+            output.src = $("#LogoUrl").val();
+        })
+    </script>
+}

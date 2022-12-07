@@ -4,6 +4,7 @@ using CinemaApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221207192811_CinemaUpdate")]
+    partial class CinemaUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,7 +185,7 @@ namespace CinemaApp.Migrations
                         .HasForeignKey("CinemaId");
 
                     b.HasOne("CinemaApp.Models.Director", "Director")
-                        .WithMany("Movies")
+                        .WithMany("MyProperty")
                         .HasForeignKey("DirectorId");
 
                     b.Navigation("Cinema");
@@ -192,7 +195,7 @@ namespace CinemaApp.Migrations
 
             modelBuilder.Entity("CinemaApp.Models.Director", b =>
                 {
-                    b.Navigation("Movies");
+                    b.Navigation("MyProperty");
                 });
 #pragma warning restore 612, 618
         }

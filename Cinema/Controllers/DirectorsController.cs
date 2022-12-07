@@ -1,17 +1,16 @@
 ﻿using CinemaApp.Data;
 using CinemaApp.Data.Services;
 using CinemaApp.Models;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Controllers
 {
-    public class ActorsController : Controller
+    public class DirectorsController : Controller
     {
-        private readonly IActorsService _service;
+        private readonly IDirectorsService _service;
 
-        public ActorsController(IActorsService service)
+        public DirectorsController(IDirectorsService service)
         {
             _service = service;
         }
@@ -27,84 +26,84 @@ namespace CinemaApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureUrl,Bio")]Actor actor)
+        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureUrl,Bio")] Director director)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(actor);
+                return View(director);
             }
             else
             {
-                await _service.AddAsync(actor);
+                await _service.AddAsync(director);
                 return RedirectToAction("Index");
             }
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
-            if(actor == null)
+            var director = await _service.GetByIdAsync(id);
+            if (director == null)
             {
                 return View("NotFound");
             }
             else
             {
-                return View(actor);
+                return View(director);
             }
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
+            var director = await _service.GetByIdAsync(id);
 
-            if (actor == null)
+            if (director == null)
             {
                 return View("NotFound");
             }
             else
             {
-                return View(actor);
+                return View(director);
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [ Bind("Id,FullName,ProfilePictureUrl,Bio")] Actor actor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureUrl,Bio")] Director director)
         {
             if (!ModelState.IsValid)
             {
-                return View(actor);
+                return View(director);
             }
             else
             {
-                await _service.UpdateAsync(actor);
+                await _service.UpdateAsync(director);
                 return RedirectToAction("Index");
             }
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
+            var director = await _service.GetByIdAsync(id);
 
-            if (actor == null)
+            if (director == null)
             {
                 return View("NotFound");
             }
             else
             {
-                return View(actor);
+                return View(director);
             }
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
-            if (actor == null)
+            var director = await _service.GetByIdAsync(id);
+            if (director == null)
             {
                 return View("NotFound");
             }
 
             await _service.DeleteAsync(id);
-            return RedirectToAction("Index");           
+            return RedirectToAction("Index");
         }
     }
 }
