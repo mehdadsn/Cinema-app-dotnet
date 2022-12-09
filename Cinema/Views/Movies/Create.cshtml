@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Add a new Movie";
+    var cinemas = ViewData["Cinemas"] as List<Cinema>; ;
+    var actors = ViewData["Actors"] as List<Actor>; ;
+    var directors = ViewData["Directors"] as List<Director>; ;
+
 }
 
 <div class="row text">
@@ -43,9 +47,38 @@
                     </div>
                     <div class="mb-3">
                         <label asp-for="MovieCategoy" class="form-control-plaintext"></label>
-                        <input asp-for="MovieCategoy" class="form-control" />
+                        <select class="select" asp-for="MovieCategoy" multiple>
+                            <option value="1">Action</option>
+                            <option value="2">Comedy</option>
+                            <option value="3">Horror</option>
+                            <option value="4">Drama</option>
+                            <option value="5">Documentry</option>
+                            <option value="6">Animation</option>
+                        </select>
                         <span asp-validation-for="MovieCategoy" class="text-danger"></span>
                     </div>
+                    <select class="form-select mb-3" name="cinemaId">                       
+                        @foreach (var cinema in cinemas)
+                        {
+                            <option value="@cinema.Id">@cinema.Name</option>
+                        }
+                    </select>
+
+                    <select class="form-select mb-3" name="actorIds" multiple>
+                        <option selected>select...</option>
+                        @foreach (var actor in actors)
+                        {
+                            <option value="@actor.Id">@actor.FullName</option>
+                        }
+                    </select>
+
+                    <select class="form-select mb-3" name="directorId">
+                        <option selected>select...</option>
+                        @foreach (var director in directors)
+                        {
+                            <option value="@director.Id">@director.FullName</option>
+                        }
+                    </select>
 
                     <div class="mb-3">
                         <input type="submit" value="Create" class="btn btn-outline-success float-end" />
@@ -62,7 +95,7 @@
 @section Scripts{
     <script>
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             var output = document.getElementById('ProfilePicture');
             output.src = $("#ImageUrl").val();
         })
