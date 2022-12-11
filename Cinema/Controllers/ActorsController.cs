@@ -18,7 +18,7 @@ namespace CinemaApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAllAsync();
+            var data = await _service.GetAllAsync(m => m.Movies);
             return View(data);
         }
 

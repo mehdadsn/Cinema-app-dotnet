@@ -48,9 +48,16 @@ namespace CinemaApp.Controllers
             else
             {
                 movie.Cinema = _service.GetCinema(cinemaId);
-                movie.Actors = _service.GetActors(actorIds);
                 movie.Director = _service.GetDirector(directorId);
-
+                var actors = _service.GetActors(actorIds);
+                movie.Actors = actors;
+                foreach (var item in actors)
+                {
+                    var movies = new List<Movie>();
+                    if (item.Movies != null) movies = item.Movies;
+                    movies.Add(movie);
+                    item.Movies = movies;
+                }
                 await _service.AddAsync(movie);
                 return RedirectToAction("Index");
             }
