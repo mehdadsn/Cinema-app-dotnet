@@ -15,6 +15,11 @@ builder.Services.AddScoped<IMoviesService, MoviesService>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication().AddCookie("CinemaAppCookie", options =>
+{
+    options.Cookie.Name = "CinemaAppCookie";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
