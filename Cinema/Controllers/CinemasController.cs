@@ -1,6 +1,7 @@
 ﻿using CinemaApp.Data;
 using CinemaApp.Data.Services;
 using CinemaApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,17 +15,22 @@ namespace CinemaApp.Controllers
         {
             _service = service;
         }
+
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Index()
         {
             var allCinemas = await _service.GetAllAsync();
             return View(allCinemas);
         }
 
+        [Authorize(policy: "IsAdmin")]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Create([Bind("Name,LogoUrl,About")] Cinema cinema)
         {
             if (!ModelState.IsValid)
@@ -38,6 +44,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Details(int id)
         {
             var cinema = await _service.GetByIdAsync(id);
@@ -51,6 +58,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Edit(int id)
         {
             var cinema = await _service.GetByIdAsync(id);
@@ -64,7 +72,9 @@ namespace CinemaApp.Controllers
                 return View(cinema);
             }
         }
+
         [HttpPost]
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LogoUrl,About")] Cinema cinema)
         {
             if (!ModelState.IsValid)
@@ -78,6 +88,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Delete(int id)
         {
             var cinema = await _service.GetByIdAsync(id);
@@ -92,6 +103,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

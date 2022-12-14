@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using CinemaApp.Data;
 using Microsoft.Extensions.Options;
 using CinemaApp.Data.Services;
+using Microsoft.CodeAnalysis.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +16,17 @@ builder.Services.AddScoped<IMoviesService, MoviesService>();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication().AddCookie("CinemaAppCookie", options =>
+builder.Services.AddAuthentication("CinemaAppCookie").AddCookie("CinemaAppCookie", options =>
 {
     options.Cookie.Name = "CinemaAppCookie";
+    options.LoginPath = "/Users/Login";
+    options.LogoutPath = "/users/Logout";
+    options.AccessDeniedPath = "/home/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsAdmin", policy => policy.RequireClaim("Role", "Admin"));
 });
 
 var app = builder.Build();

@@ -21,6 +21,14 @@
             </div>
             <span class="text-danger" asp-validation-for="@Model.Password"></span>
         </div>
+        <div class="row form-check mb-2">
+            <div class="col-2">
+                <input type="checkbox" asp-for="@Model.RememberMe" class="form-check-input" />
+                <label class="form-check-label" asp-for="@Model.RememberMe"> </label>
+            </div>
+            <div class="col-5">
+            </div>
+        </div>
         <div class="mb-3 row">
             <div class="col-2">
                 <input type="submit" class="btn btn-primary" value="Login" />

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,28 +21,33 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                       <li class="nav-item"> 
-                           <a class="nav-link text-dark" asp-controller="Movies" asp-action="index"><i class="bi bi-film"></i>Movies</a>
-                       </li>
-                       <li class="nav-item dropdown">
-
-                            <a class="btn nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
-                               <i class="bi bi-gear">Management</i>
-                           </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-controller="Cinemas" asp-action="index"><i class="bi bi-camera-reels"></i>Cinemas</a>
-                                <a class="dropdown-item" asp-controller="Directors" asp-action="index"><i class="bi bi-headset"></i>Directors</a>
-                                <a class="dropdown-item" asp-controller="Actors" asp-action="index"><i class="bi bi-person-square"></i>Actors</a>
-                            </div>
-                       </li>
                         
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Movies" asp-action="index"><i class="bi bi-film"></i>Movies</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated && (User.FindFirstValue("Role") == "Admin"))
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="btn nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear">Management</i>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-controller="Cinemas" asp-action="index"><i class="bi bi-camera-reels"></i>Cinemas</a>
+                                    <a class="dropdown-item" asp-controller="Directors" asp-action="index"><i class="bi bi-headset"></i>Directors</a>
+                                    <a class="dropdown-item" asp-controller="Actors" asp-action="index"><i class="bi bi-person-square"></i>Actors</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <form class="my-2 my-lg-0" styles="display: inline-block; width: auto; vertical-align: middle;" asp-controller="Movies" asp-action="Filter" style="padding-right:25px;">
-                        <input name="searchString" type="text" class="form-control" placeholder="Search for a movie..." style="display:inline"/>
+                        <input name="searchString" type="text" class="form-control" placeholder="Search for a movie..." style="display:inline" />
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="display:inline"><i class="bi bi-search"></i></button>
                     </form>
-                   
+                    <div class="me-2">
+                        <partial name="_LoginStatusPartial">
+                    </div>
                 </div>
             </div>
         </nav>

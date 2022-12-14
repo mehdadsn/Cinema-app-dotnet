@@ -1,6 +1,7 @@
 ﻿using CinemaApp.Data;
 using CinemaApp.Data.Services;
 using CinemaApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -22,6 +23,7 @@ namespace CinemaApp.Controllers
             return View(data);
         }
 
+        [Authorize(policy: "IsAdmin")]
         public IActionResult Create()
         {
             var cinemas = _service.GetCinemas();
@@ -32,6 +34,8 @@ namespace CinemaApp.Controllers
             ViewData["Directors"] = directors;
             return View();
         }
+
+        [Authorize(policy:"IsAdmin")]
         [HttpPost]
         public async Task<IActionResult> Create(int cinemaId, List<int> actorIds, int directorId, [Bind("Title,BreifStory,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
         {
@@ -76,6 +80,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Edit(int id)
         {
             var movie = await _service.GetByIdAsync(id);
@@ -89,7 +94,9 @@ namespace CinemaApp.Controllers
                 return View(movie);
             }
         }
+
         [HttpPost]
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Edit([Bind("Id,Title,BreifStory,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
         {
             if (!ModelState.IsValid)
@@ -103,6 +110,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         public async Task<IActionResult> Delete(int id)
         {
             var movie = await _service.GetByIdAsync(id);
@@ -117,6 +125,7 @@ namespace CinemaApp.Controllers
             }
         }
 
+        [Authorize(policy: "IsAdmin")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
