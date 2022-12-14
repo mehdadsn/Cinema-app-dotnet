@@ -24,15 +24,26 @@ namespace CinemaApp.Controllers
             {
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, "admin"),
-                    new Claim(ClaimTypes.Email, "admin@cinemaapp.com")
+                    new Claim(ClaimTypes.Email, "admin@cinemaapp.com"),
+                    new Claim("Role", "user")
                 };
                 var identity = new ClaimsIdentity(claims, "CinemaAppCookie");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync("CinemaAppCookie", claimsPrincipal);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = login.RememberMe
+                };
+
+                await HttpContext.SignInAsync("CinemaAppCookie", claimsPrincipal, authProperties);
                 return RedirectToAction("Index", "Movies");
             }
             return View();
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("CinemaAppCookie");
+            return RedirectToAction("Index", "Movies");
         }
     }
 }
