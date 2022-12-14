@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CinemaApp.ViewModel
+namespace CinemaApp.ViewModels
 {
     public class LoginViewModel
     {
-        public int Id { get; set; }
+        [Required]
+        [Display(Name ="User Name")]
         public string UserName { get; set; }
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
