@@ -1,5 +1,4 @@
-﻿
-@if (User.Identity.IsAuthenticated)
+﻿@if (User.Identity.IsAuthenticated)
 {
     <form method="post" asp-controller="Users" asp-action="Logout">
         Welcome @User.Identity.Name
@@ -9,4 +8,5 @@
 else
 {
     <a class="btn btn-link" asp-controller="Users" asp-action="Login">Login</a>
+    <a class="btn btn-link" asp-controller="Users" asp-action="SignUp">Sign up</a>
 }
