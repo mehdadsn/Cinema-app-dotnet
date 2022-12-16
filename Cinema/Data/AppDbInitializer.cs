@@ -13,6 +13,19 @@ namespace CinemaApp.Data
 
                 context.Database.EnsureCreated();
 
+                //Users
+                if(!context.Users.Any())
+                {
+                    context.Users.Add(new User()
+                    {
+                        FullName = "RootAdmin",
+                        Email = "root",
+                        Password= "root",
+                        Role= "Admin",
+                        SignUpDate= DateTime.Now,
+                    });
+                    context.SaveChanges();
+                }
                 //Cinema
                 if (!context.Cinemas.Any())
                 {
