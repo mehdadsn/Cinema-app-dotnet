@@ -30,7 +30,7 @@ namespace CinemaApp.Controllers
             if (!ModelState.IsValid) return View(login);
 
             var user = _service.FindByEmail(login.Email);
-
+            
             if (user == null || login.Password != user.Password)
             {
                 TempData["Error"] = "Wrong credentials. Please, try again!";
@@ -41,6 +41,7 @@ namespace CinemaApp.Controllers
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, user.FullName),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Id", user.Id.ToString()),
                 new Claim("Role", user.Role)
                 };
 

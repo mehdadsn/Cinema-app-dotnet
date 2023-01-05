@@ -37,7 +37,7 @@ namespace CinemaApp.Controllers
 
         [Authorize(policy:"IsAdmin")]
         [HttpPost]
-        public async Task<IActionResult> Create(int cinemaId, List<int> actorIds, int directorId, [Bind("Title,BreifStory,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
+        public async Task<IActionResult> Create(int cinemaId, List<int> actorIds, int directorId, [Bind("Title,BreifStory,Price,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace CinemaApp.Controllers
 
         [HttpPost]
         [Authorize(policy: "IsAdmin")]
-        public async Task<IActionResult> Edit([Bind("Id,Title,BreifStory,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
+        public async Task<IActionResult> Edit([Bind("Id,Title,BreifStory,Price,ImageUrl,CinemaStart,CinemaEnd,MovieCategoy")] Movie movie)
         {
             if (!ModelState.IsValid)
             {

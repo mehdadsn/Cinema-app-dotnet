@@ -1,5 +1,5 @@
-﻿using CinemaApp.Data.Base;
-using CinemaApp.Models;
+﻿using CinemaApp.Models;
+using CinemaApp.Data.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Data.Services

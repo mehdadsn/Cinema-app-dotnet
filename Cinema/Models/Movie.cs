@@ -18,5 +18,6 @@ namespace CinemaApp.Models
         public List<Actor>? Actors { get; set; }
         public Director? Director { get; set; }
         public Cinema? Cinema { get; set; }
+        public double? Price { get; set; }
     }
 }

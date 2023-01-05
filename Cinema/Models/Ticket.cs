@@ -1,6 +1,8 @@
-﻿namespace CinemaApp.Models
+﻿using CinemaApp.Data.Base;
+
+namespace CinemaApp.Models
 {
-    public class Ticket
+    public class Ticket : IEntityBase
     {
         public int Id { get; set; }
         public Movie Movie { get; set; }
