@@ -10,6 +10,8 @@ namespace CinemaApp.Models
         public string Password { get; set; }
         public string? Phone { get; set; }
         public string Role { get; set; }
-        public DateTime SignUpDate {get; set; }
+        public DateTime SignUpDate { get; set; }
+        public List<Cart> Carts { get; set; }
+        public List<Ticket> Tickets { get; set; }
     }
 }

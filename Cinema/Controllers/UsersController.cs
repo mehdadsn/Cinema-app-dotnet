@@ -27,30 +27,35 @@ namespace CinemaApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
-            if(!ModelState.IsValid) return View(login);
+            if (!ModelState.IsValid) return View(login);
 
             var user = _service.FindByEmail(login.Email);
-            if (user == null) return View(login);
 
-            if (login.Password == user.Password)
+            if (user == null || login.Password != user.Password)
             {
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name, user.FullName),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim("Role", user.Role)
-                };
-                var identity = new ClaimsIdentity(claims, "CinemaAppCookie");
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-                var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = login.RememberMe
-                };
-
-                await HttpContext.SignInAsync("CinemaAppCookie", claimsPrincipal, authProperties);
-                return RedirectToAction("Index", "Movies");
+                TempData["Error"] = "Wrong credentials. Please, try again!";
+                return View(login);
             }
-            return View();
+
+
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Role", user.Role)
+                };
+
+            var identity = new ClaimsIdentity(claims, "CinemaAppCookie");
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = login.RememberMe
+            };
+
+            await HttpContext.SignInAsync("CinemaAppCookie", claimsPrincipal, authProperties);
+            return RedirectToAction("Index", "Movies");
+
+            //return View();
         }
         public async Task<IActionResult> Logout()
         {
@@ -70,7 +75,7 @@ namespace CinemaApp.Controllers
             {
                 return View(newUser);
             }
-            if(newUser.Password != newUser.ConfirmPassword)
+            if (newUser.Password != newUser.ConfirmPassword)
             {
                 return View(newUser);
             }

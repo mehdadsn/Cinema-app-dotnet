@@ -1,6 +1,12 @@
 ﻿@model LoginViewModel
 
 <div class="container border" style="padding:20px;">
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="mb-3 row">

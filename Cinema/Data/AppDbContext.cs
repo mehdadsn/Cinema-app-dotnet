@@ -28,5 +28,7 @@ namespace CinemaApp.Data
         public DbSet<Director> Directors { get; set; }
         public DbSet<CinemaApp.Models.Cinema> Cinemas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }
